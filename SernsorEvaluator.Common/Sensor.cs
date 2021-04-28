@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SensorEvaluator.Common
 {
@@ -26,14 +25,17 @@ namespace SensorEvaluator.Common
         public Termometer(string name, SensorType type) : base(name, type) { }
         public override Evaluation GetEvaluation(double correctValue)
         {
-            var deviation = Math.Abs(Readings.Average(x => x.Value) - correctValue);
+            var meanValue = Readings.Average(x => x.Value);
+            var meanMistake = Math.Abs(meanValue - correctValue);
+
+            var standardDeviation = Math.Sqrt(Readings.Sum(x => Math.Pow(meanValue - x.Value, 2)) / (Readings.Count - 1));
             string result;
 
-            if (deviation > 3)
+            if (meanMistake > 0.5)
             {
-                result = "standard";
+                result = "precise";
             }
-            else if (deviation > 0.5)
+            else if (standardDeviation > 3)
             {
                 result = "very precise";
             }
@@ -51,9 +53,8 @@ namespace SensorEvaluator.Common
         public Humidity(string name, SensorType type) : base(name, type) { }
         public override Evaluation GetEvaluation(double correctValue)
         {
-            var deviation = Math.Abs(Readings.Average(x => x.Value) - correctValue);
             var allowedDeviation = correctValue / 100;
-            var result = deviation > allowedDeviation ? "discard" : "keep";
+            var result = Readings.Any(x => Math.Abs(x.Value - correctValue) > allowedDeviation) ? "discard" : "keep";
 
             return new Evaluation(Name, result);
         }
@@ -64,7 +65,7 @@ namespace SensorEvaluator.Common
         public Monooxide(string name, SensorType type) : base(name, type) { }
         public override Evaluation GetEvaluation(double correctValue)
         {
-            var result = Readings.Any(x => Math.Abs(correctValue - x.Value) > 3) ? "discard" : "keep";
+            var result = Readings.Any(x => Math.Abs(x.Value - correctValue) > 3) ? "discard" : "keep";
 
             return new Evaluation(Name, result);
         }
