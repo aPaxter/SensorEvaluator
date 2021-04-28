@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace SensorEvaluator.Common
 {
-    public static class FileParser
+    public static class LogParser
     {
         public static SensorData Parse(string logContentsStr)
         {
@@ -76,11 +76,11 @@ namespace SensorEvaluator.Common
             switch (sensor)
             {
                 case SensorType.Humidity:
-                    return new Humidity(name, sensor);
+                    return new HumiditySensor(name, sensor);
                 case SensorType.Termometer:
                     return new Termometer(name, sensor);
                 case SensorType.Monooxide:
-                    return new Monooxide(name, sensor);
+                    return new MonooxideSensor(name, sensor);
                 default:
                     throw new ArgumentOutOfRangeException();
             }

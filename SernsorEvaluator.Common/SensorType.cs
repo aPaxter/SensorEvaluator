@@ -2,7 +2,7 @@
 {
     public enum SensorType
     {
-        Termometer,
+        Termometer = 1,
         Humidity,
         Monooxide
     }

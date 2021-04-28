@@ -48,9 +48,9 @@ namespace SensorEvaluator.Common
         }
     }
 
-    public class Humidity : Sensor
+    public class HumiditySensor : Sensor
     {
-        public Humidity(string name, SensorType type) : base(name, type) { }
+        public HumiditySensor(string name, SensorType type) : base(name, type) { }
         public override Evaluation GetEvaluation(double correctValue)
         {
             var allowedDeviation = correctValue / 100;
@@ -60,9 +60,9 @@ namespace SensorEvaluator.Common
         }
     }
 
-    public class Monooxide : Sensor
+    public class MonooxideSensor : Sensor
     {
-        public Monooxide(string name, SensorType type) : base(name, type) { }
+        public MonooxideSensor(string name, SensorType type) : base(name, type) { }
         public override Evaluation GetEvaluation(double correctValue)
         {
             var result = Readings.Any(x => Math.Abs(x.Value - correctValue) > 3) ? "discard" : "keep";

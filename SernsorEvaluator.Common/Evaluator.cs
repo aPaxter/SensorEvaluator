@@ -6,7 +6,7 @@ namespace SensorEvaluator.Common
     {
         public static string EvaluateLogFile(string logContentsStr)
         {
-            var sensorData = FileParser.Parse(logContentsStr);
+            var sensorData = LogParser.Parse(logContentsStr);
 
             var result = string.Empty;
 
