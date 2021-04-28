@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SensorEvaluator.Common
+﻿namespace SensorEvaluator.Common
 {
     public enum SensorType
     {

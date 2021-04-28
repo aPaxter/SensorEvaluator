@@ -13,9 +13,9 @@ namespace SensorEvaluator.Common
                 var fileLines = Regex.Split(logContentsStr, "\r\n|\r|\n");
                 var firstLine = fileLines[0].Split(' ');
 
-                var Temperature = double.Parse(firstLine[1]);
-                var Humidity = double.Parse(firstLine[2]);
-                var Monooxide = double.Parse(firstLine[3]);
+                var temperature = double.Parse(firstLine[1]);
+                var humidity = double.Parse(firstLine[2]);
+                var monooxide = double.Parse(firstLine[3]);
 
                 var lineIndex = 1;
 
@@ -51,9 +51,9 @@ namespace SensorEvaluator.Common
 
                 return new SensorData()
                 {
-                    Temperature = Temperature,
-                    Humidity = Humidity,
-                    Monooxide = Monooxide,
+                    Temperature = temperature,
+                    Humidity = humidity,
+                    Monooxide = monooxide,
                     Sensors = sensors
                 };
             }
